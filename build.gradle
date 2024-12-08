@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.5'
+    id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.hibernate.orm' version '6.5.3.Final'
+    id 'org.graalvm.buildtools.native' version '0.10.3'
+}
+
+group = 'com.example'
+version '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(23)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'javax.persistence:javax.persistence-api:2.2' // Или последняя доступная версия
+    implementation 'org.hibernate:hibernate-core:5.4.30.Final' // Или последняя доступная версия
+    runtimeOnly 'com.h2database:h2:1.4.200'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+}
+
+hibernate {
+    enhancement {
+        enableAssociationManagement = true
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
